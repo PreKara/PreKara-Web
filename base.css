@@ -18,10 +18,14 @@ main {
   margin: 0 5%;
 }
 
+h2 {
+  margin-bottom: 16px;
+}
+
 #banner {
   width: 90%;
   cursor: pointer;
-  margin: 0 5%;
+  margin: 40px 5% 40px 5%;
 }
 
 #menu{
@@ -33,27 +37,28 @@ main {
   left: 0;
   top: 0;
   width: 70%;
-  margin: 0 15%;
+  margin: 32px 15%;
 }
 
 .btn {
   text-decoration:none;
-  margin: 24px 0;
+  margin: 0 0 32px 0;
   border: 1px #fff solid;
   border-radius: 50px;
   cursor: pointer;
   z-index: 100;
+  color:#FFF;
 }
 
 .btn:hover {
   background:#9E9E9E;
+  color:#000;
 }
 
 .btn-text {
   font-size:24px;
   padding: 3px;
   font-weight: 100;
-  color:#FFF;
   cursor: pointer;
   text-align: center;
 }
@@ -76,9 +81,10 @@ input{
   padding: 3px 16px;
   font-weight: 100;
   margin: 4px 0 16px 0;
+  outline: none;
 }
 
-#create{
+.login{
   transition: opacity .5s, visibility .5s;
   opacity: 0;
   visibility: hidden;

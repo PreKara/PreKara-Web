@@ -7,30 +7,39 @@
     <meta name="description" content="Prekara">
     <meta name="author" content="mizucoffee">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="main.js"></script>
-    <link rel="stylesheet" href="base.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:200" rel="stylesheet">
+    <script src="main.js" async></script>
+    <link rel="stylesheet" href="base.css" async>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" async>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.2/superagent.min.js" ></script>
     <!--[if lt IE 9]>
       <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="">
   </head>
   <body>
-    <img src="prekara.png" id="banner" onClick="showHome()"/>
+    <img src="prekara.svg" id="banner" onClick="showHome()"/>
     <main>
 
       <div id="menu" class="show">
         <div onClick="openCreateMenu()" class="btn"><div class="btn-text">Create Server</div></div>
-        <div onClick="#" class="btn"><div class="btn-text">Connect Server</div></div>
+        <div onClick="openConnectMenu()" class="btn"><div class="btn-text">Connect Server</div></div>
       </div>
 
-      <div id="create" style="opacity:0;">
+      <div id="create" class="login" style="opacity:0;">
+        <h2>Create Server</h2>
         <p class="form-tag">Server Name</p>
-        <input onInput="checkForm(this)"></input><br>
+        <input id="name-cre" onInput="checkForm(this)"></input><br>
         <p class="form-tag">Password</p>
-        <input type="password"></input>
-        <div id="createSubmitBtn" onClick="#" class="btn"><div class="btn-text">Submit</div></div>
+        <input id="pass-cre" type="password"></input>
+        <div id="createSubmitBtn" onClick="createSubmit()" class="btn"><div class="btn-text">Submit</div></div>
+      </div>
+      <div id="connect" class="login" style="opacity:0;">
+        <h2>Connect Server</h2>
+        <p class="form-tag">Server Name</p>
+        <input id="name-con" onInput="checkForm(this)"></input><br>
+        <p class="form-tag">Password</p>
+        <input id="pass-con" type="password"></input>
+        <div id="connectSubmitBtn" onClick="connectSubmit()" class="btn"><div class="btn-text">Submit</div></div>
       </div>
 
     </main>
