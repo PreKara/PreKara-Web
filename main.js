@@ -29,7 +29,7 @@ function createSubmit(){
     mode: 'cors',
     credentials: 'include',
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify( {"server_name": name,"password":pass}
+    body: JSON.stringify( {"server_name": name,"password":pass})
   }).then(function(response) {
     alert(response)
     return response.json();
