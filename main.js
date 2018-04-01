@@ -24,16 +24,18 @@ function createSubmit(){
   var pass = document.getElementById("pass-cre").value
   if(name == null || pass == null) {alert("plz input");return}
 
+  var data = new FormData();
+  data.append( "body", JSON.stringify( {"server_name": name,"password":pass} ) );
   fetch(base + "/server", {
     method: 'POST',
     mode: 'cors',
     credentials: 'include',
     headers: {"Content-Type":"application/json"},
-    body: {"server_name": name,"password":pass}
+    body: data
   }).then(function(response) {
+    alert(response)
     return response.json();
   }).then(function(json) {
-    alert(json)
   });
 }
 
