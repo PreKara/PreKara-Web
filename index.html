@@ -1,3 +1,5 @@
+<!-- ログイン中ならhomeでなくmainに遷移 -->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,30 +19,57 @@
     <![endif]-->
   </head>
   <body>
-    <img src="prekara.svg" id="banner" onClick="showHome()"/>
+    <img src="prekara.svg" id="banner" onClick="banner()"/>
+
+    <div id="error" style="display:none;">
+      Error: Incorrect Server Name or Password entered. Please try again.
+    </div>
+
     <main>
 
-      <div id="menu" class="show">
-        <div onClick="openCreateMenu()" class="btn"><div class="btn-text">Create Server</div></div>
-        <div onClick="openConnectMenu()" class="btn"><div class="btn-text">Connect Server</div></div>
-      </div>
+    <div id="menu" class="main show">
+      <div onClick="openCreateMenu()" class="btn"><div class="btn-text">Create Server</div></div>
+      <div onClick="openConnectMenu()" class="btn"><div class="btn-text">Connect Server</div></div>
+    </div>
 
-      <div id="create" class="login" style="opacity:0;">
-        <h2>Create Server</h2>
-        <p class="form-tag">Server Name</p>
-        <input id="name-cre" onInput="checkForm(this)"></input><br>
-        <p class="form-tag">Password</p>
-        <input id="pass-cre" type="password"></input>
-        <div id="createSubmitBtn" onClick="createSubmit()" class="btn"><div class="btn-text">Submit</div></div>
+    <div id="create" class="main" style="opacity:0;">
+      <h2>Create Server</h2>
+      <p class="form-tag">Server Name</p>
+      <input id="name-cre" onInput="checkForm(this)"></input><br>
+      <p class="form-tag">Password</p>
+      <input id="pass-cre" type="password"></input>
+      <div id="createSubmitBtn" onClick="serverCreate()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
+    </div>
+    <div id="connect" class="main" style="opacity:0;">
+      <h2>Connect Server</h2>
+      <p class="form-tag">Server Name</p>
+      <input id="name-con" onInput="checkForm(this)"></input><br>
+      <p class="form-tag">Password</p>
+      <input id="pass-con" type="password"></input>
+      <div id="connectSubmitBtn" onClick="sessionLogin()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
+    </div>
+    <div id="loading" class="main">
+      <div class="loader">
+        <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                                                                                               width="100px" height="100px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+          <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+          <animateTransform attributeType="xml"
+                            attributeName="transform"
+                            type="rotate"
+                            from="0 25 25"
+                            to="360 25 25"
+                            dur="1s"
+                            repeatCount="indefinite"/>
+          </path>
+        </svg>
       </div>
-      <div id="connect" class="login" style="opacity:0;">
-        <h2>Connect Server</h2>
-        <p class="form-tag">Server Name</p>
-        <input id="name-con" onInput="checkForm(this)"></input><br>
-        <p class="form-tag">Password</p>
-        <input id="pass-con" type="password"></input>
-        <div id="connectSubmitBtn" onClick="connectSubmit()" class="btn"><div class="btn-text">Submit</div></div>
-      </div>
+    </div>
+    <div id="main" class="main" style="opacity:0;">
+      <div onClick="" class="btn"><div class="btn-text">Presentation</div></div>
+      <div onClick="" class="btn"><div class="btn-text">Post Image</div></div>
+      <div onClick="" class="btn"><div class="btn-text">Post Theme</div></div>
+      <div onClick="sessionRevoke()" class="btn bottom-btn"><div class="btn-text">Disconnect</div></div>
+    </div>
 
     </main>
     <footer>Copyright©2018 PreKara all rights reserved.</footer>

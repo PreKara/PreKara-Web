@@ -1,29 +1,100 @@
-var request = window.superagent;
-var base = "http://localhost:3000/api/v1"
+// ログイン等失敗したときエラーメッセージが消えない
+// Server登録完了で一度完了画面を踏む
+// フォームEnterで次へ
 
-function showHome() {
-  document.getElementById("menu").classList.add("show")
-  document.getElementById("create").classList.remove("show")
-  document.getElementById("connect").classList.remove("show")
+const base = "/api/v1";
+
+window.onload = () => {
+  const request = window.superagent;
+
+  const menu = document.getElementById("menu")
+  const create = document.getElementById("create")
+  const connect = document.getElementById("connect")
+  const loading = document.getElementById("loading")
+  const error = document.getElementById("error")
+  const main = document.getElementById("main")
+
+  fetch(base + "/session", {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"}
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    if(json.status === 200) {
+      openMain()
+    }
+  })
+}
+
+function banner(){
+  fetch(base + "/session", {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"}
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    if(json.status === 200) {
+      openMain()
+    }else{
+      openHome()
+    }
+  })
+}
+
+function openHome() {
+  menu.classList.add("show")
+  create.classList.remove("show")
+  connect.classList.remove("show")
+  loading.classList.remove("show")
+  main.classList.remove("show")
 }
 
 function openCreateMenu() {
-  document.getElementById("menu").classList.remove("show")
-  document.getElementById("create").classList.add("show");
-  document.getElementById("connect").classList.remove("show")
+  menu.classList.remove("show")
+  create.classList.add("show");
+  connect.classList.remove("show")
+  loading.classList.remove("show")
+  main.classList.remove("show")
 }
 
 function openConnectMenu() {
-  document.getElementById("menu").classList.remove("show")
-  document.getElementById("create").classList.remove("show");
-  document.getElementById("connect").classList.add("show")
+  menu.classList.remove("show")
+  create.classList.remove("show");
+  connect.classList.add("show")
+  loading.classList.remove("show")
+  main.classList.remove("show")
 }
 
-function createSubmit(){
-  var name = document.getElementById("name-cre").value
-  var pass = document.getElementById("pass-cre").value
-  if(name == null || pass == null) {alert("plz input");return}
+function openLoading() {
+  menu.classList.remove("show")
+  create.classList.remove("show");
+  connect.classList.remove("show")
+  loading.classList.add("show")
+  main.classList.remove("show")
+}
 
+function openMain() {
+  menu.classList.remove("show")
+  create.classList.remove("show");
+  connect.classList.remove("show")
+  loading.classList.remove("show")
+  main.classList.add("show")
+}
+
+function serverCreate(){
+  const name = document.getElementById("name-cre").value
+  const pass = document.getElementById("pass-cre").value
+  if(name == "" || pass == "") {
+    error.style.display="block"
+    error.innerText = "This Server Name and Password is required"
+    return
+  }
+  document.getElementById("error").style.display="none"
+  openLoading()
   fetch(base + "/server", {
     method: 'POST',
     mode: 'cors',
@@ -31,10 +102,77 @@ function createSubmit(){
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify( {"server_name": name,"password":pass})
   }).then(function(response) {
-    alert(response)
     return response.json();
   }).then(function(json) {
+    if(json.status == 200) {
+      openMain()
+    }else if(json.status == 409){
+      openCreateMenu()
+      error.style.display="block"
+      error.innerText = "Error: This Server Name is already taken"
+    }
   });
 }
 
-checkForm = (f) => { while(f.value.match(/[^A-Z^a-z\d\-]/)) f.value=f.value.replace(/[^A-Z^a-z\d\-]/,"") }
+function sessionLogin(){
+  const name = document.getElementById("name-con").value
+  const pass = document.getElementById("pass-con").value
+  if(name == "" || pass == "") {
+    error.style.display="block"
+    error.innerText = "This Server Name and Password is required"
+    return
+  }
+  document.getElementById("error").style.display="none"
+  openLoading()
+  fetch(base + "/session", {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify( {"server_name": name,"password":pass})
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    if(json.status == 200) {
+      openMain()
+    }else if(json.status == 403 || json.status == 404){
+      openCreateMenu()
+      error.style.display="block"
+      error.innerText = "Error: Server Name is incorrect"
+    }else if(json.status == 409){
+      openCreateMenu()
+      error.style.display="block"
+      error.innerText = "Error: This Server Name is already taken"
+    }
+  });
+}
+
+function sessionRevoke(){
+  openLoading()
+  fetch(base + "/session", {
+    method: 'DELETE',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"}
+  }).then(function(response) {
+    openHome()
+  });
+}
+
+function checkForm(f) {
+  while(f.value.match(/[^A-Z^a-z\d\-]/))
+    f.value=f.value.replace(/[^A-Z^a-z\d\-]/,"")
+}
+
+function GetCookies(){
+    var result = new Array();
+    var allcookies = document.cookie;
+    if( allcookies != '' ){
+        var cookies = allcookies.split( '; ' );
+        for( var i = 0; i < cookies.length; i++ ){
+            var cookie = cookies[ i ].split( '=' );
+            result[ cookie[ 0 ] ] = decodeURIComponent( cookie[ 1 ] );
+        }
+    }
+  return result;
+}

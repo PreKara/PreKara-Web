@@ -84,7 +84,10 @@ input{
   outline: none;
 }
 
-.login{
+.form-tag{
+  color: #9E9E9E;
+}
+.main{
   transition: opacity .5s, visibility .5s;
   opacity: 0;
   visibility: hidden;
@@ -105,6 +108,20 @@ input:focus {
   border:solid 1px #FFF;
 }
 
-#createSubmitBtn {
-  margin-top: 48px;
+.bottom-btn {
+  margin-top: 64px;
+}
+
+.loader{
+  margin: 80px calc(50% - 50px);
+}
+
+svg path,
+svg rect{
+  fill: #FFF;
+}
+
+#error{
+  margin: 0 0 24px 0 ;
+  text-align: center;
 }
