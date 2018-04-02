@@ -17,7 +17,7 @@
     <![endif]-->
   </head>
   <body>
-    <img src="prekara.svg" id="banner" onClick="banner()"/>
+    <img src="prekara.svg" class="banner" onClick="banner()"/>
 
     <main>
 
@@ -33,7 +33,9 @@
       <p class="form-tag">Password</p>
       <input id="pass-cre" type="password"></input>
       <div id="createSubmitBtn" onClick="serverCreate()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
+      <div id="error-cre" class=""></div>
     </div>
+
     <div id="connect" class="main" style="opacity:0;">
       <h2>Connect Server</h2>
       <p class="form-tag">Server Name</p>
@@ -41,7 +43,9 @@
       <p class="form-tag">Password</p>
       <input id="pass-con" type="password"></input>
       <div id="connectSubmitBtn" onClick="sessionLogin()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
+      <div id="error-con" class=""></div>
     </div>
+
     <div id="loading" class="main">
       <div class="loader">
         <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -60,13 +64,28 @@
     </div>
     <div id="main" class="main" style="opacity:0;">
       <div onClick="" class="btn"><div class="btn-text">Presentation</div></div>
-      <div onClick="" class="btn"><div class="btn-text">Post Image</div></div>
-      <div onClick="" class="btn"><div class="btn-text">Post Theme</div></div>
+      <div onClick="openImageMenu()" class="btn"><div class="btn-text">Post Image</div></div>
+      <div onClick="openThemeMenu()" class="btn"><div class="btn-text">Post Theme</div></div>
       <div onClick="sessionRevoke()" class="btn bottom-btn"><div class="btn-text">Disconnect</div></div>
     </div>
 
+    <div id="image" class="main" style="opacity:0;">
+      <div id="uploadBox" onClick="upload()" effectAllowed="move">
+        <p class="form-tag">Drag and Drop Image</p>
+        <p class="form-tag">or</p>
+        <p class="form-tag">Click here</p>
+        <input type="file" id="file" hidden>
+      </div>
+    </div>
+
+    <div id="theme" class="main" style="opacity:0;">
+      <p class="form-tag">Theme</p>
+      <input id="theme-input" onInput="checkForm(this)"></input><br>
+      <div onClick="" class="btn"><div class="btn-text">Post Theme</div></div>
+      
+    </div>
+
     </main>
-    <div id="error" class=""></div>
     <footer>Copyright©2018 PreKara all rights reserved.</footer>
   </body>
 </html>

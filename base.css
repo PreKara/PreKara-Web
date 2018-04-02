@@ -22,7 +22,7 @@ h2 {
   margin-bottom: 16px;
 }
 
-#banner {
+.banner {
   width: 90%;
   cursor: pointer;
   margin: 40px 5% 40px 5%;
@@ -103,6 +103,7 @@ input{
 .show {
   opacity: 1 !important;
   visibility: visible !important;
+
 }
 
 input:focus {
@@ -129,4 +130,17 @@ svg rect{
   text-align: center;
   transition: opacity 0.3s, visibility 0.3s;
 }
+#uploadBox{
+  width: 302px;
+  background: black;
+  border: 1px #fff solid;
+  text-align: center;
+  font-size: 24px;
+  padding-top: 109px;
+  padding-bottom: 109px;
+  cursor: pointer;
+}
 
+.uphover{
+  background-color: #333 !important
+}
