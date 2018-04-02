@@ -48,6 +48,7 @@ h2 {
   cursor: pointer;
   z-index: 100;
   color:#FFF;
+  transition: background .3s, color .3s;
 }
 
 .btn:hover {
@@ -122,6 +123,10 @@ svg rect{
 }
 
 #error{
-  margin: 0 0 24px 0 ;
+  opacity: 0;
+  visibility: hidden;
+  margin: 0 0 24px 0;
   text-align: center;
+  transition: opacity 0.3s, visibility 0.3s;
 }
+

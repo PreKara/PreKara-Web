@@ -46,6 +46,7 @@ function banner(){
 }
 
 function openHome() {
+  error.classList.remove("show");
   menu.classList.add("show")
   create.classList.remove("show")
   connect.classList.remove("show")
@@ -54,6 +55,7 @@ function openHome() {
 }
 
 function openCreateMenu() {
+  //document.getElementById("error").style.display="none"
   menu.classList.remove("show")
   create.classList.add("show");
   connect.classList.remove("show")
@@ -62,6 +64,7 @@ function openCreateMenu() {
 }
 
 function openConnectMenu() {
+  document.getElementById("error").style.display="none"
   menu.classList.remove("show")
   create.classList.remove("show");
   connect.classList.add("show")
@@ -70,6 +73,7 @@ function openConnectMenu() {
 }
 
 function openLoading() {
+  document.getElementById("error").style.display="none"
   menu.classList.remove("show")
   create.classList.remove("show");
   connect.classList.remove("show")
@@ -78,6 +82,7 @@ function openLoading() {
 }
 
 function openMain() {
+  document.getElementById("error").style.display="none"
   menu.classList.remove("show")
   create.classList.remove("show");
   connect.classList.remove("show")
@@ -89,8 +94,8 @@ function serverCreate(){
   const name = document.getElementById("name-cre").value
   const pass = document.getElementById("pass-cre").value
   if(name == "" || pass == "") {
-    error.style.display="block"
-    error.innerText = "This Server Name and Password is required"
+    error.classList.add("show");
+    error.innerText = "Error: This Server Name and Password is required"
     return
   }
   document.getElementById("error").style.display="none"
@@ -118,8 +123,8 @@ function sessionLogin(){
   const name = document.getElementById("name-con").value
   const pass = document.getElementById("pass-con").value
   if(name == "" || pass == "") {
-    error.style.display="block"
-    error.innerText = "This Server Name and Password is required"
+    error.innerText = "Error: This Server Name and Password is required"
+    error.classList.add("show");
     return
   }
   document.getElementById("error").style.display="none"
@@ -136,13 +141,13 @@ function sessionLogin(){
     if(json.status == 200) {
       openMain()
     }else if(json.status == 403 || json.status == 404){
-      openCreateMenu()
-      error.style.display="block"
+      openConnectMenu()
       error.innerText = "Error: Server Name is incorrect"
+      error.classList.add("show");
     }else if(json.status == 409){
-      openCreateMenu()
-      error.style.display="block"
+      openConnectMenu()
       error.innerText = "Error: This Server Name is already taken"
+      error.classList.add("show");
     }
   });
 }
