@@ -47,28 +47,26 @@ window.onload = () => {
     // 拡張子チェック
     // エラー処理
 
-    for (var i=0, l=files.length; i<l; i++) {
-      var reader = new FileReader();
-      reader.onload = function(event) {
-        var formData  = new FormData();
-        formData.append("image",files[0])
+    for (var i=0; i < files.length; i++) {
+      var formData  = new FormData();
+      console.log(event)
+      formData.append("image",files[i])
 
-        fetch(base + "/image", {
-          method: 'POST',
-          mode: 'cors',
-          credentials: 'include',
-          body: formData
-        }).then(function(response) {
-          console.log(response)
-          return response.json();
-        }).then(function(json) {
-          console.log(json)
-          if(json.status == 200) {
-          }else if(json.status == 409){
-          }
-        });
-      };
-      reader.readAsDataURL(files[i])
+      fetch(base + "/image", {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        body: formData
+      }).then(function(response) {
+        console.log(response)
+        return response.json();
+      }).then(function(json) {
+        console.log(json)
+        if(json.status == 200) {
+          getImages()
+        }else if(json.status == 409){
+        }
+      });
     }
 
   });
@@ -89,6 +87,7 @@ window.onload = () => {
       return response.json();
     }).then(function(json) {
       if(json.status == 200) {
+        getImages()
       }else if(json.status == 409){
       }
     });
@@ -170,6 +169,7 @@ function openImageMenu() {
   main.classList.remove("show")
   image.classList.add("show")
   theme.classList.remove("show")
+  getImages()
 }
 function openThemeMenu() {
   menu.classList.remove("show")
@@ -217,10 +217,9 @@ function sessionLogin(){
   const pass = document.getElementById("pass-con").value
   if(name == "" || pass == "") {
     error.innerText = "Error: This Server Name and Password is required"
-    error.classList.add("show");
     return
   }
-  error.style.display="none"
+  error.innerText=""
   openLoading()
   fetch(base + "/session", {
     method: 'POST',
@@ -236,11 +235,9 @@ function sessionLogin(){
     }else if(json.status == 403 || json.status == 404){
       openConnectMenu()
       error.innerText = "Error: Server Name is incorrect"
-      error.classList.add("show");
     }else if(json.status == 409){
       openConnectMenu()
       error.innerText = "Error: This Server Name is already taken"
-      error.classList.add("show");
     }
   });
 }
@@ -278,4 +275,49 @@ function GetCookies(){
 function upload(){
   const f = document.getElementById("file")
   f.click()
+}
+
+
+function getImages(images){
+  fetch(base + "/image/list", {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"}
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    if(json.status === 200) {
+      while (document.getElementById("image-container").firstChild) document.getElementById("image-container").removeChild(document.getElementById("image-container").firstChild);
+      json.images.forEach ((image) => {
+        let item = document.createElement('div')
+        item.classList.add("item")
+
+        let img = document.createElement('img')
+        img.src = base + "/image/" + image
+
+        let a = document.createElement('a')
+        a.innerText = "Remove"
+        a.onclick = () => {
+          fetch(base + "/image/" + image, {
+            method: 'DELETE',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {"Content-Type":"application/json"}
+          }).then(function(response) {
+            return response.json();
+          }).then(function(json) {
+            getImages()
+          })
+        }
+
+        item.appendChild(img)
+        item.appendChild(a)
+
+        document.getElementById("image-container").appendChild(item)
+      })
+    }else{
+      openHome()
+    }
+  })
 }

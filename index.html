@@ -22,28 +22,34 @@
     <main>
 
     <div id="menu" class="main show">
-      <div onClick="openCreateMenu()" class="btn"><div class="btn-text">Create Server</div></div>
-      <div onClick="openConnectMenu()" class="btn"><div class="btn-text">Connect Server</div></div>
+      <div class="inner">
+        <div onClick="openCreateMenu()" class="btn"><div class="btn-text">Create Server</div></div>
+        <div onClick="openConnectMenu()" class="btn"><div class="btn-text">Connect Server</div></div>
+      </div>
     </div>
 
     <div id="create" class="main" style="opacity:0;">
-      <h2>Create Server</h2>
-      <p class="form-tag">Server Name</p>
-      <input id="name-cre" onInput="checkForm(this)"></input><br>
-      <p class="form-tag">Password</p>
-      <input id="pass-cre" type="password"></input>
-      <div id="createSubmitBtn" onClick="serverCreate()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
-      <div id="error-cre" class=""></div>
+      <div class="inner">
+        <h2>Create Server</h2>
+        <p class="form-tag">Server Name</p>
+        <input id="name-cre" onInput="checkForm(this)"></input><br>
+        <p class="form-tag">Password</p>
+        <input id="pass-cre" type="password"></input>
+        <div id="createSubmitBtn" onClick="serverCreate()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
+      </div>
+      <div id="error-cre" class="error"></div>
     </div>
 
     <div id="connect" class="main" style="opacity:0;">
-      <h2>Connect Server</h2>
-      <p class="form-tag">Server Name</p>
-      <input id="name-con" onInput="checkForm(this)"></input><br>
-      <p class="form-tag">Password</p>
-      <input id="pass-con" type="password"></input>
-      <div id="connectSubmitBtn" onClick="sessionLogin()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
-      <div id="error-con" class=""></div>
+      <div class="inner">
+        <h2>Connect Server</h2>
+        <p class="form-tag">Server Name</p>
+        <input id="name-con" onInput="checkForm(this)"></input><br>
+        <p class="form-tag">Password</p>
+        <input id="pass-con" type="password"></input>
+        <div id="connectSubmitBtn" onClick="sessionLogin()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
+      </div>
+      <div id="error-con" class="error"></div>
     </div>
 
     <div id="loading" class="main">
@@ -63,18 +69,25 @@
       </div>
     </div>
     <div id="main" class="main" style="opacity:0;">
-      <div onClick="" class="btn"><div class="btn-text">Presentation</div></div>
-      <div onClick="openImageMenu()" class="btn"><div class="btn-text">Post Image</div></div>
-      <div onClick="openThemeMenu()" class="btn"><div class="btn-text">Post Theme</div></div>
-      <div onClick="sessionRevoke()" class="btn bottom-btn"><div class="btn-text">Disconnect</div></div>
+      <div class="inner">
+        <div onClick="" class="btn"><div class="btn-text">Presentation</div></div>
+        <div onClick="openImageMenu()" class="btn"><div class="btn-text">Post Image</div></div>
+        <div onClick="openThemeMenu()" class="btn"><div class="btn-text">Post Theme</div></div>
+        <div onClick="sessionRevoke()" class="btn bottom-btn"><div class="btn-text">Disconnect</div></div>
+      </div>
     </div>
 
     <div id="image" class="main" style="opacity:0;">
-      <div id="uploadBox" onClick="upload()" effectAllowed="move">
-        <p class="form-tag">Drag and Drop Image</p>
-        <p class="form-tag">or</p>
-        <p class="form-tag">Click here</p>
-        <input type="file" id="file" hidden>
+      <div class="inner">
+        <h2>Image</h2>
+        <div id="uploadBox" onClick="upload()" effectAllowed="move">
+          <p class="form-tag">Drag and Drop Image</p>
+          <p class="form-tag">or</p>
+          <p class="form-tag">Click here</p>
+          <input type="file" id="file" hidden>
+        </div>
+      </div>
+      <div id="image-container">
       </div>
     </div>
 
@@ -82,7 +95,7 @@
       <p class="form-tag">Theme</p>
       <input id="theme-input" onInput="checkForm(this)"></input><br>
       <div onClick="" class="btn"><div class="btn-text">Post Theme</div></div>
-      
+
     </div>
 
     </main>

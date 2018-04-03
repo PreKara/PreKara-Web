@@ -28,18 +28,6 @@ h2 {
   margin: 40px 5% 40px 5%;
 }
 
-#menu{
-  transition: opacity .5s, visibility .5s;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 10;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 70%;
-  margin: 32px 15%;
-}
-
 .btn {
   text-decoration:none;
   margin: 0 0 32px 0;
@@ -70,6 +58,8 @@ footer{
   height: 20px;
   text-align: center;
   width: 480px;
+  background-color: #000;
+  z-index: 100;
 }
 
 input{
@@ -88,6 +78,12 @@ input{
 .form-tag{
   color: #9E9E9E;
 }
+
+.inner{
+  width: 84%;
+  margin: 0 8%;
+}
+
 .main{
   transition: opacity .5s, visibility .5s;
   opacity: 0;
@@ -96,8 +92,7 @@ input{
   position: absolute;
   top: 0;
   left: 0;
-  width: 70%;
-  margin: 0 15%;
+  right: 0;
 }
 
 .show {
@@ -131,16 +126,48 @@ svg rect{
   transition: opacity 0.3s, visibility 0.3s;
 }
 #uploadBox{
-  width: 302px;
+  width: 100%;
   background: black;
   border: 1px #fff solid;
   text-align: center;
   font-size: 24px;
-  padding-top: 109px;
-  padding-bottom: 109px;
+  padding-top: 128px;
+  padding-bottom: 128px;
   cursor: pointer;
 }
 
 .uphover{
   background-color: #333 !important
+}
+
+.item {
+  margin-bottom:40px;
+  flex-basis: 50%;
+}
+
+.item img {
+  width: 90%;
+  margin: 0 5%;
+}
+
+.item a {
+  margin: 0 5%;
+  color: #9E9E9E;
+  cursor: pointer;
+}
+
+.item a:hover{
+  color: #FFF;
+}
+
+.error {
+  text-align: center;
+}
+
+#image-container{
+  margin-top: 64px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
