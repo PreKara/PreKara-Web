@@ -7,17 +7,17 @@
     <meta name="description" content="Prekara">
     <meta name="author" content="mizucoffee">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/socket.io/socket.io.js"></script>
     <script src="main.js" async></script>
     <link rel="stylesheet" href="base.css" async>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" async>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.2/superagent.min.js" ></script>
     <!--[if lt IE 9]>
       <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
   <body>
-    <img src="prekara.svg" class="banner" onClick="banner()"/>
+    <img id="banner" src="prekara.svg" class="banner" onClick="banner()"/>
 
     <main>
 
@@ -70,7 +70,7 @@
     </div>
     <div id="main" class="main" style="opacity:0;">
       <div class="inner">
-        <div onClick="" class="btn"><div class="btn-text">Presentation</div></div>
+        <div onClick="window.location.href = '/slide.html'" class="btn"><div class="btn-text">Presentation</div></div>
         <div onClick="openImageMenu()" class="btn"><div class="btn-text">Post Image</div></div>
         <div onClick="openThemeMenu()" class="btn"><div class="btn-text">Post Theme</div></div>
         <div onClick="sessionRevoke()" class="btn bottom-btn"><div class="btn-text">Disconnect</div></div>
@@ -97,29 +97,12 @@
         <input id="theme-input" onInput="checkForm(this)"></input><br>
         <div onClick="postTheme()" class="btn bottom-btn"><div class="btn-text">Post Theme</div></div>
       </div>
-      <div id="theme-list">
-        <div class="theme-item">
-          <p>テーマ♡</p>
-          <img src="/clear.svg"></img>
-        </div>
-        <hr>
-        <div class="theme-item">
-          <p>テーマ♡</p>
-          <img src="/clear.svg"></img>
-        </div>
-        <hr>
-        <div class="theme-item">
-          <p>テーマ♡</p>
-          <img src="/clear.svg"></img>
-        </div>
-        <hr>
-        <div class="theme-item">
-          <p>テーマ♡</p>
-          <img src="/clear.svg"></img>
-        </div>
-        <hr>
-      </div>
+      <div id="theme-list"></div>
       <div id="error-theme" class="error"></div>
+    </div>
+
+    <div id="presentation" class="main" style="opacity:0;">
+      
     </div>
 
     </main>

@@ -98,7 +98,6 @@ input{
 .show {
   opacity: 1 !important;
   visibility: visible !important;
-
 }
 
 input:focus {

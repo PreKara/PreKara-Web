@@ -1,0 +1,35 @@
+body {
+  background-color: #000;
+}
+
+#slide {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 68px;
+  width: 100%;
+  height: calc(100% - 56px);
+  object-fit: contain;
+}
+
+#prekara{
+  position: fixed;
+  width:20%;
+  bottom: 76px;
+  right: 20px;
+  opacity: 1;
+}
+
+#presenter {
+  position: fixed;
+  background-color:#777;
+  text-align: center;
+  font-size: 48px;
+  color: #FFF;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  height: 56px;
+}
+
