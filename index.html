@@ -21,7 +21,7 @@
 
     <main>
 
-    <div id="menu" class="main show">
+    <div id="menu" class="main">
       <div class="inner">
         <div onClick="openCreateMenu()" class="btn"><div class="btn-text">Create Server</div></div>
         <div onClick="openConnectMenu()" class="btn"><div class="btn-text">Connect Server</div></div>
@@ -52,7 +52,7 @@
       <div id="error-con" class="error"></div>
     </div>
 
-    <div id="loading" class="main">
+    <div id="loading" class="main show">
       <div class="loader">
         <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                                                                                                width="100px" height="100px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -87,15 +87,39 @@
           <input type="file" id="file" hidden>
         </div>
       </div>
-      <div id="image-container">
-      </div>
+      <div id="image-container"></div>
     </div>
 
     <div id="theme" class="main" style="opacity:0;">
-      <p class="form-tag">Theme</p>
-      <input id="theme-input" onInput="checkForm(this)"></input><br>
-      <div onClick="" class="btn"><div class="btn-text">Post Theme</div></div>
-
+      <div class="inner">
+        <h2>Theme</h2>
+        <p class="form-tag">Theme</p>
+        <input id="theme-input" onInput="checkForm(this)"></input><br>
+        <div onClick="postTheme()" class="btn bottom-btn"><div class="btn-text">Post Theme</div></div>
+      </div>
+      <div id="theme-list">
+        <div class="theme-item">
+          <p>テーマ♡</p>
+          <img src="/clear.svg"></img>
+        </div>
+        <hr>
+        <div class="theme-item">
+          <p>テーマ♡</p>
+          <img src="/clear.svg"></img>
+        </div>
+        <hr>
+        <div class="theme-item">
+          <p>テーマ♡</p>
+          <img src="/clear.svg"></img>
+        </div>
+        <hr>
+        <div class="theme-item">
+          <p>テーマ♡</p>
+          <img src="/clear.svg"></img>
+        </div>
+        <hr>
+      </div>
+      <div id="error-theme" class="error"></div>
     </div>
 
     </main>

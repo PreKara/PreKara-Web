@@ -23,6 +23,8 @@ window.onload = () => {
   }).then(function(json) {
     if(json.status === 200) {
       openMain()
+    }else{
+      openHome()
     }
   })
   const upBox = document.getElementById('uploadBox');
@@ -51,6 +53,7 @@ window.onload = () => {
       var formData  = new FormData();
       console.log(event)
       formData.append("image",files[i])
+      openLoading()
 
       fetch(base + "/image", {
         method: 'POST',
@@ -58,10 +61,9 @@ window.onload = () => {
         credentials: 'include',
         body: formData
       }).then(function(response) {
-        console.log(response)
         return response.json();
       }).then(function(json) {
-        console.log(json)
+        openImageMenu()
         if(json.status == 200) {
           getImages()
         }else if(json.status == 409){
@@ -77,15 +79,16 @@ window.onload = () => {
     var formData  = new FormData();
     formData.append("image",file.files[0])
 
+    openLoading()
     fetch(base + "/image", {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',
       body: formData
     }).then(function(response) {
-      console.log(response)
       return response.json();
     }).then(function(json) {
+      openImageMenu()
       if(json.status == 200) {
         getImages()
       }else if(json.status == 409){
@@ -179,6 +182,7 @@ function openThemeMenu() {
   main.classList.remove("show")
   image.classList.remove("show")
   theme.classList.add("show")
+  getThemes()
 }
 
 function serverCreate(){
@@ -201,6 +205,7 @@ function serverCreate(){
   }).then(function(response) {
     return response.json();
   }).then(function(json) {
+    openLoading()
     if(json.status == 200) {
       openMain()
     }else if(json.status == 409){
@@ -278,7 +283,7 @@ function upload(){
 }
 
 
-function getImages(images){
+function getImages(){
   fetch(base + "/image/list", {
     method: 'GET',
     mode: 'cors',
@@ -320,4 +325,79 @@ function getImages(images){
       openHome()
     }
   })
+}
+
+function getThemes(){
+  const error = document.getElementById("error-theme")
+  fetch(base + "/theme/list", {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"}
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    if(json.status === 200) {
+      while (document.getElementById("theme-list").firstChild) document.getElementById("theme-list").removeChild(document.getElementById("theme-list").firstChild);
+      json.theme.forEach ((theme) => {
+
+        let item = document.createElement('div')
+        let text = document.createElement('p')
+        let rm = document.createElement('img')
+        rm.src = "/clear.svg"
+        item.classList.add("theme-item")
+        text.innerText = theme
+
+        rm.onclick = () => {
+          error.innerText = ""
+          console.log(theme)
+          fetch(base + "/theme", {
+            method: 'DELETE',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({"theme": theme})
+          }).then(function(response) {
+            return response.json();
+          }).then(function(json) {
+            getThemes()
+          })
+        }
+
+        item.appendChild(text)
+        item.appendChild(rm)
+        item.appendChild(document.createElement('hr'))
+
+        document.getElementById("theme-list").appendChild(item)
+      })
+    }else{
+      openHome()
+    }
+  })
+}
+function postTheme(){
+  const error = document.getElementById("error-theme")
+  const th = document.getElementById("theme-input").value
+  if(th == "") {
+    error.innerText = "Error: Theme is required"
+    return
+  }
+  error.innerText=""
+  openLoading()
+  fetch(base + "/theme", {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify( {"theme":th } )
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    openThemeMenu()
+    if(json.status == 200) {
+      getThemes()
+    }else if(json.status == 409){
+      error.innerText = "Error: Theme is already registerd"
+    }
+  });
 }

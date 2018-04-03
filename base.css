@@ -171,3 +171,33 @@ svg rect{
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+#theme-list{
+  margin-top:64px;
+}
+
+.theme-item {
+  height: 44px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.theme-item p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 28px;
+  width: calc(100% - 60px);
+  margin: 8px;
+  font-size: 24px;
+  float: left;
+}
+
+.theme-item img{
+  height: 44px;
+  cursor: pointer;
+}
+
+.theme-item img:hover{
+  background-color: #333;
+}
