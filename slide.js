@@ -7,6 +7,7 @@ window.onload = () => {
   var socket = io();
   socket.on('error', (msg) => {
     console.log(msg);
+    window.location.href = "/"
   });
   socket.on('next', (msg) => {
     console.log(msg);
