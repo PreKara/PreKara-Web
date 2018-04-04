@@ -1,4 +1,3 @@
-// ログイン等失敗したときエラーメッセージが消えない
 // Server登録完了で一度完了画面を踏む
 // フォームEnterで次へ
 
@@ -488,7 +487,7 @@ function postTheme(){
     mode: 'cors',
     credentials: 'include',
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify( {"theme":th } )
+    body: JSON.stringify( {"theme":th.value } )
   }).then(function(response) {
     return response.json();
   }).then(function(json) {
@@ -500,4 +499,15 @@ function postTheme(){
       error.innerText = "Error: Theme is already registerd"
     }
   });
+}
+
+function input(e,s) {
+  if (e.keyCode == 13) {
+    if("cren"){
+      document.getElementById("pass-cre").focus()
+    }
+    if("crep"){
+      serverCreate()
+    }
+  }
 }

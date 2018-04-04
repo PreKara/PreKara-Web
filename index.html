@@ -32,9 +32,9 @@
       <div class="inner">
         <h2>Create Server</h2>
         <p class="form-tag">Server Name</p>
-        <input id="name-cre" onInput="checkForm(this)"></input><br>
+        <input id="name-cre" onkeypress="input(event,'cren')" onInput="checkForm(this)"></input><br>
         <p class="form-tag">Password</p>
-        <input id="pass-cre" type="password"></input>
+        <input id="pass-cre" onkeypress="input(event,'crep')" type="password"></input>
         <div id="createSubmitBtn" onClick="serverCreate()" class="btn bottom-btn"><div class="btn-text">Submit</div></div>
       </div>
       <div id="error-cre" class="error"></div>
