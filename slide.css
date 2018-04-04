@@ -7,9 +7,9 @@ body {
   top: 0px;
   right: 0px;
   left: 0px;
-  bottom: 68px;
+  bottom: 0px;
   width: 100%;
-  height: calc(100% - 56px);
+  height: 100%;
   object-fit: contain;
 }
 
@@ -23,13 +23,31 @@ body {
 
 #presenter {
   position: fixed;
-  background-color:#777;
+  opacity: 0.5;
+  background-color:#222;
+  text-align: center;
+  font-size: 36px;
+  color: #FFF;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  padding-top: 10px;
+  height: 46px;
+  z-index: 10;
+}
+
+#theme {
+  position: fixed;
+  opacity: 0.5;
+  background-color:#222;
   text-align: center;
   font-size: 48px;
   color: #FFF;
   right: 0px;
   left: 0px;
-  bottom: 0px;
-  height: 56px;
+  top: 0px;
+  padding-top: 16px;
+  height: 72px;
+  z-index: 10;
 }
 

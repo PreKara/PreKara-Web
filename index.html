@@ -73,6 +73,7 @@
         <div onClick="window.location.href = '/slide.html'" class="btn"><div class="btn-text">Presentation</div></div>
         <div onClick="openImageMenu()" class="btn"><div class="btn-text">Post Image</div></div>
         <div onClick="openThemeMenu()" class="btn"><div class="btn-text">Post Theme</div></div>
+        <div onClick="openPresenterMenu()" class="btn"><div class="btn-text">Post Presenter</div></div>
         <div onClick="sessionRevoke()" class="btn bottom-btn"><div class="btn-text">Disconnect</div></div>
       </div>
     </div>
@@ -94,15 +95,22 @@
       <div class="inner">
         <h2>Theme</h2>
         <p class="form-tag">Theme</p>
-        <input id="theme-input" onInput="checkForm(this)"></input><br>
+        <input id="theme-input"></input><br>
         <div onClick="postTheme()" class="btn bottom-btn"><div class="btn-text">Post Theme</div></div>
       </div>
       <div id="theme-list"></div>
       <div id="error-theme" class="error"></div>
     </div>
 
-    <div id="presentation" class="main" style="opacity:0;">
-      
+    <div id="presenter" class="main" style="opacity:0;">
+      <div class="inner">
+        <h2>Presenter</h2>
+        <p class="form-tag">Presenter</p>
+        <input id="presenter-input"></input><br>
+        <div onClick="postPresenter()" class="btn bottom-btn"><div class="btn-text">Post Theme</div></div>
+      </div>
+      <div id="presenter-list"></div>
+      <div id="error-presenter" class="error"></div>
     </div>
 
     </main>

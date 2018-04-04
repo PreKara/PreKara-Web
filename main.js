@@ -12,6 +12,7 @@ window.onload = () => {
   const connect = document.getElementById("connect")
   const loading = document.getElementById("loading")
   const main = document.getElementById("main")
+  const presenter = document.getElementById("presenter")
 
   fetch(base + "/session", {
     method: 'GET',
@@ -123,6 +124,7 @@ function openHome() {
   main.classList.remove("show")
   image.classList.remove("show")
   theme.classList.remove("show")
+  presenter.classList.remove("show")
 }
 
 function openCreateMenu() {
@@ -133,6 +135,7 @@ function openCreateMenu() {
   main.classList.remove("show")
   image.classList.remove("show")
   theme.classList.remove("show")
+  presenter.classList.remove("show")
 }
 
 function openConnectMenu() {
@@ -143,6 +146,7 @@ function openConnectMenu() {
   main.classList.remove("show")
   image.classList.remove("show")
   theme.classList.remove("show")
+  presenter.classList.remove("show")
 }
 
 function openLoading() {
@@ -153,6 +157,7 @@ function openLoading() {
   main.classList.remove("show")
   image.classList.remove("show")
   theme.classList.remove("show")
+  presenter.classList.remove("show")
 }
 
 function openMain() {
@@ -163,6 +168,7 @@ function openMain() {
   main.classList.add("show")
   image.classList.remove("show")
   theme.classList.remove("show")
+  presenter.classList.remove("show")
 }
 function openImageMenu() {
   menu.classList.remove("show")
@@ -172,6 +178,7 @@ function openImageMenu() {
   main.classList.remove("show")
   image.classList.add("show")
   theme.classList.remove("show")
+  presenter.classList.remove("show")
   getImages()
 }
 function openThemeMenu() {
@@ -182,7 +189,20 @@ function openThemeMenu() {
   main.classList.remove("show")
   image.classList.remove("show")
   theme.classList.add("show")
+  presenter.classList.remove("show")
   getThemes()
+}
+
+function openPresenterMenu() {
+  menu.classList.remove("show")
+  create.classList.remove("show");
+  connect.classList.remove("show")
+  loading.classList.remove("show")
+  main.classList.remove("show")
+  image.classList.remove("show")
+  theme.classList.remove("show")
+  presenter.classList.add("show")
+  getPresenters()
 }
 
 function serverCreate(){
@@ -369,6 +389,80 @@ function getThemes(){
         item.appendChild(document.createElement('hr'))
 
         document.getElementById("theme-list").appendChild(item)
+      })
+    }else{
+      openHome()
+    }
+  })
+}
+function postPresenter(){
+  const error = document.getElementById("error-presenter")
+  const presenter = document.getElementById("presenter-input").value
+  if(presenter == "") {
+    error.innerText = "Error: Presenter is required"
+    return
+  }
+  error.innerText=""
+  openLoading()
+  fetch(base + "/presenter", {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify( {"presenter":presenter } )
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    openPresenterMenu()
+    if(json.status == 200) {
+      getPresenters()
+    }else if(json.status == 409){
+      error.innerText = "Error: Presenter is already registerd"
+    }
+  });
+}
+function getPresenters(){
+  const error = document.getElementById("error-presenter")
+  fetch(base + "/presenter/list", {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {"Content-Type":"application/json"}
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    if(json.status === 200) {
+      while (document.getElementById("presenter-list").firstChild) document.getElementById("presenter-list").removeChild(document.getElementById("presenter-list").firstChild);
+      json.presenter.forEach ((presenter) => {
+
+        let item = document.createElement('div')
+        let text = document.createElement('p')
+        let rm = document.createElement('img')
+        rm.src = "/clear.svg"
+        item.classList.add("theme-item")
+        text.innerText = presenter
+
+        rm.onclick = () => {
+          error.innerText = ""
+          console.log(presenter)
+          fetch(base + "/presenter", {
+            method: 'DELETE',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({"presenter": presenter})
+          }).then(function(response) {
+            return response.json();
+          }).then(function(json) {
+            getPresenters()
+          })
+        }
+
+        item.appendChild(text)
+        item.appendChild(rm)
+        item.appendChild(document.createElement('hr'))
+
+        document.getElementById("presenter-list").appendChild(item)
       })
     }else{
       openHome()
