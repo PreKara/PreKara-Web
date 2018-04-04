@@ -207,9 +207,9 @@ function openPresenterMenu() {
 
 function serverCreate(){
   const error = document.getElementById("error-cre")
-  const name = document.getElementById("name-cre").value
-  const pass = document.getElementById("pass-cre").value
-  if(name == "" || pass == "") {
+  const name = document.getElementById("name-cre")
+  const pass = document.getElementById("pass-cre")
+  if(name.value == "" || pass.value == "") {
     error.classList.add("show");
     error.innerText = "Error: This Server Name and Password is required"
     return
@@ -221,13 +221,15 @@ function serverCreate(){
     mode: 'cors',
     credentials: 'include',
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify( {"server_name": name,"password":pass})
+    body: JSON.stringify( {"server_name": name.value,"password":pass.value})
   }).then(function(response) {
     return response.json();
   }).then(function(json) {
     openLoading()
     if(json.status == 200) {
       openMain()
+      name.value = ""
+      pass.value = ""
     }else if(json.status == 409){
       openCreateMenu()
       error.style.display="block"
@@ -238,9 +240,9 @@ function serverCreate(){
 
 function sessionLogin(){
   const error = document.getElementById("error-con")
-  const name = document.getElementById("name-con").value
-  const pass = document.getElementById("pass-con").value
-  if(name == "" || pass == "") {
+  const name = document.getElementById("name-con")
+  const pass = document.getElementById("pass-con")
+  if(name.value == "" || pass.value == "") {
     error.innerText = "Error: This Server Name and Password is required"
     return
   }
@@ -251,12 +253,14 @@ function sessionLogin(){
     mode: 'cors',
     credentials: 'include',
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify( {"server_name": name,"password":pass})
+    body: JSON.stringify( {"server_name": name.value,"password":pass.value})
   }).then(function(response) {
     return response.json();
   }).then(function(json) {
     if(json.status == 200) {
       openMain()
+      name.value = ""
+      pass.value = ""
     }else if(json.status == 403 || json.status == 404){
       openConnectMenu()
       error.innerText = "Error: Server Name is incorrect"
@@ -397,8 +401,8 @@ function getThemes(){
 }
 function postPresenter(){
   const error = document.getElementById("error-presenter")
-  const presenter = document.getElementById("presenter-input").value
-  if(presenter == "") {
+  const presenter = document.getElementById("presenter-input")
+  if(presenter.value == "") {
     error.innerText = "Error: Presenter is required"
     return
   }
@@ -409,13 +413,14 @@ function postPresenter(){
     mode: 'cors',
     credentials: 'include',
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify( {"presenter":presenter } )
+    body: JSON.stringify( {"presenter":presenter.value } )
   }).then(function(response) {
     return response.json();
   }).then(function(json) {
     openPresenterMenu()
     if(json.status == 200) {
       getPresenters()
+      presenter.value = ""
     }else if(json.status == 409){
       error.innerText = "Error: Presenter is already registerd"
     }
@@ -471,8 +476,8 @@ function getPresenters(){
 }
 function postTheme(){
   const error = document.getElementById("error-theme")
-  const th = document.getElementById("theme-input").value
-  if(th == "") {
+  const th = document.getElementById("theme-input")
+  if(th.value == "") {
     error.innerText = "Error: Theme is required"
     return
   }
@@ -488,6 +493,7 @@ function postTheme(){
     return response.json();
   }).then(function(json) {
     openThemeMenu()
+    th.value = ""
     if(json.status == 200) {
       getThemes()
     }else if(json.status == 409){
